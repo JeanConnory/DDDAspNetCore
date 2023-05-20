@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 
 namespace application
 {
@@ -28,6 +29,27 @@ namespace application
             ConfigureService.ConfigureDependenciesService(services);
             ConfigureRepository.ConfigureDependenciesRepository(services);
             services.AddControllers();
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "Curso de DDD",
+                    Description = "Aprendendo a arquitetura DDD",
+                    TermsOfService = new Uri("http://www.connorysoft.com.br"),
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Jean Michael Connory",
+                        Email = "jmconnory@mail.com",
+                        Url = new Uri("http://www.connorysoft.com.br")
+                    },
+                    License = new OpenApiLicense
+                    {
+                        Name = "Termos de licença de uso",
+                        Url = new Uri("http://www.connorysoft.com.br")
+                    }
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -37,6 +59,13 @@ namespace application
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Curso DDD");
+                c.RoutePrefix = string.Empty;
+            });
 
             app.UseRouting();
 
