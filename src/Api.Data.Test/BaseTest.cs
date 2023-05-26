@@ -20,7 +20,7 @@ namespace Api.Data.Test
 
         public ServiceProvider ServiceProvider { get; private set; }
 
-        public BaseTest()
+        public DbTeste()
         {
             var connectionStringTest = $"Persist Security Info=True;Server=Localhost;Port=3306;Database={dataBaseName};Uid=root;Pwd=123456789";
 
