@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Api.Application.Controllers;
 using Api.Domain.Dtos.User;
@@ -11,7 +10,7 @@ using Xunit;
 
 namespace Api.Application.Test.Usuario.QuandoRequisitarGetAll
 {
-    public class Retorno_GetAll
+    public class Retorno_BadRequest
     {
         private UsersController _controller;
 
@@ -41,12 +40,10 @@ namespace Api.Application.Test.Usuario.QuandoRequisitarGetAll
             );
 
             _controller = new UsersController(serviceMock.Object);
+            _controller.ModelState.AddModelError("Id", "Formato Invalido");
 
             var result = await _controller.GetAll();
-            Assert.True(result is OkObjectResult);
-
-            var resultValue = ((OkObjectResult)result).Value as IEnumerable<UserDto>;
-            Assert.True(resultValue.Count() == 2);
+            Assert.True(result is BadRequestResult);
         }
     }
 }
