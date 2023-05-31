@@ -156,16 +156,16 @@ namespace application
                 endpoints.MapControllers();
             });
 
-            // if (Environment.GetEnvironmentVariable("MIGRATION").ToLower() == "APLICAR".ToLower()) //Executar logo a migration ao subir
-            // {
-            //     using (var service = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
-            //     {
-            //         using (var context = service.ServiceProvider.GetService<MyContext>())
-            //         {
-            //             context.Database.Migrate();
-            //         }
-            //     }
-            // }
+            if (Environment.GetEnvironmentVariable("MIGRATION").ToLower() == "APLICAR".ToLower()) //Executar logo a migration ao subir
+            {
+                using (var service = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+                {
+                    using (var context = service.ServiceProvider.GetService<MyContext>())
+                    {
+                        context.Database.Migrate();
+                    }
+                }
+            }
         }
     }
 }
