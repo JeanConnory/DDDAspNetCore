@@ -93,7 +93,7 @@ namespace Api.Data.Test
                 Assert.True(_todosRegistros.Count() > 0);
 
                 var _removeu = await _repositorio.DeleteAsync(_registroSelecionadoCep.Id);
-                Assert.True(_todosRegistros.Count() == 0);
+                Assert.True(_removeu);
 
                 _todosRegistros = await _repositorio.SelectAsync();
                 Assert.NotNull(_todosRegistros);
