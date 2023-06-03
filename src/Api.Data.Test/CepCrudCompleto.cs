@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Api.Data.Context;
@@ -59,6 +58,7 @@ namespace Api.Data.Test
 
                 _entityCep.Logradouro = Faker.Address.StreetName();
                 _entityCep.Id = _registroCriadoCep.Id;
+
                 var _registroAtualizadoCep = await _repositorio.UpdateAsync(_entityCep);
                 Assert.NotNull(_registroAtualizadoCep);
                 Assert.Equal(_entityCep.Cep, _registroAtualizadoCep.Cep);
@@ -66,6 +66,38 @@ namespace Api.Data.Test
                 Assert.Equal(_entityCep.Numero, _registroAtualizadoCep.Numero);
                 Assert.Equal(_entityCep.MunicipioId, _registroAtualizadoCep.MunicipioId);
                 Assert.True(_registroCriadoCep.Id == _entityCep.Id);
+
+                var _registroExiste = await _repositorio.ExistAsync(_registroAtualizadoCep.Id);
+                Assert.True(_registroExiste);
+
+                var _registroSelecionadoCep = await _repositorio.SelectAsync(_registroAtualizadoCep.Id);
+                Assert.NotNull(_registroSelecionadoCep);
+                Assert.Equal(_registroAtualizadoCep.Cep, _registroSelecionadoCep.Cep);
+                Assert.Equal(_registroAtualizadoCep.Logradouro, _registroSelecionadoCep.Logradouro);
+                Assert.Equal(_registroAtualizadoCep.Numero, _registroSelecionadoCep.Numero);
+                Assert.Equal(_registroAtualizadoCep.MunicipioId, _registroSelecionadoCep.MunicipioId);
+
+                _registroSelecionadoCep = await _repositorio.SelectAsync(_registroAtualizadoCep.Cep);
+                Assert.NotNull(_registroSelecionadoCep);
+                Assert.Equal(_registroAtualizadoCep.Cep, _registroSelecionadoCep.Cep);
+                Assert.Equal(_registroAtualizadoCep.Logradouro, _registroSelecionadoCep.Logradouro);
+                Assert.Equal(_registroAtualizadoCep.Numero, _registroSelecionadoCep.Numero);
+                Assert.Equal(_registroAtualizadoCep.MunicipioId, _registroSelecionadoCep.MunicipioId);
+                Assert.NotNull(_registroSelecionadoCep.Municipio);
+                Assert.Equal(_entityMunicipio.Nome, _registroSelecionadoCep.Municipio.Nome);
+                Assert.NotNull(_registroSelecionadoCep.Municipio.Uf);
+                Assert.Equal("CE", _registroSelecionadoCep.Municipio.Uf.Sigla);
+
+                var _todosRegistros = await _repositorio.SelectAsync();
+                Assert.NotNull(_todosRegistros);
+                Assert.True(_todosRegistros.Count() > 0);
+
+                var _removeu = await _repositorio.DeleteAsync(_registroSelecionadoCep.Id);
+                Assert.True(_todosRegistros.Count() == 0);
+
+                _todosRegistros = await _repositorio.SelectAsync();
+                Assert.NotNull(_todosRegistros);
+                Assert.True(_todosRegistros.Count() == 0);
             }
         }
     }
