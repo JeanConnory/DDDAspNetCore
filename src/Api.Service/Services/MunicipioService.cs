@@ -33,7 +33,7 @@ namespace Api.Service.Services
             return _mapper.Map<MunicipioDtoCompleto>(entity);
         }
 
-        public async Task<MunicipioDtoCompleto> GetCompleteByIBGEd(int codIbge)
+        public async Task<MunicipioDtoCompleto> GetCompleteByIbge(int codIbge)
         {
             var entity = await _repository.GetCompleteByIbge(codIbge);
             return _mapper.Map<MunicipioDtoCompleto>(entity);

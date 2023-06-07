@@ -11,7 +11,7 @@ namespace Api.Domain.Interfaces.Services.Municipio
 
         Task<MunicipioDtoCompleto> GetCompleteById(Guid id);
 
-        Task<MunicipioDtoCompleto> GetCompleteByIBGEd(int codIbge);
+        Task<MunicipioDtoCompleto> GetCompleteByIbge(int codIbge);
 
         Task<IEnumerable<MunicipioDto>> GetAll();
 
