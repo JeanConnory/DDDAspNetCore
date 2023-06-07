@@ -13,6 +13,6 @@ namespace Api.Domain.Dtos.Municipio
         public int CodIbge { get; set; }
 
         [Required(ErrorMessage = "Código de UF é campo obrigatório")]
-        public Guid UdId { get; set; }
+        public Guid UfId { get; set; }
     }
 }

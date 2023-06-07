@@ -11,7 +11,7 @@ namespace Api.Domain.Dtos.Municipio
 
         public int CodIbge { get; set; }
 
-        public Guid UdId { get; set; }
+        public Guid UfId { get; set; }
 
         public UfDto Uf { get; set; }
     }
