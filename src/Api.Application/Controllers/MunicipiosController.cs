@@ -46,7 +46,13 @@ namespace Api.Application.Controllers
 
             try
             {
-                return Ok(await _service.Get(id));
+                var result = await _service.Get(id);
+                if (result == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(result);
             }
             catch (ArgumentException e)
             {
@@ -64,7 +70,13 @@ namespace Api.Application.Controllers
 
             try
             {
-                return Ok(await _service.GetCompleteById(id));
+                var result = await _service.GetCompleteById(id);
+                if (result == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(result);
             }
             catch (ArgumentException e)
             {
@@ -82,7 +94,13 @@ namespace Api.Application.Controllers
 
             try
             {
-                return Ok(await _service.GetCompleteByIbge(codIbge));
+                var result = await _service.GetCompleteByIbge(codIbge);
+                if (result == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(result);
             }
             catch (ArgumentException e)
             {
@@ -133,6 +151,23 @@ namespace Api.Application.Controllers
                 {
                     return BadRequest();
                 }
+            }
+            catch (ArgumentException e)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError, e.Message);
+            }
+        }
+
+        [Authorize("Bearer")]
+        [HttpDelete("{id}")] // Ao invés do route
+        public async Task<ActionResult> Delete(Guid id)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            try
+            {
+                return Ok(await _service.Delete(id));
             }
             catch (ArgumentException e)
             {
