@@ -42,25 +42,27 @@
             "command": "dotnet",
             "type": "process",
             "args": [
-                "test",               
+                "test",
                 "${workspaceFolder}/src/Api.Data.Test/Api.Data.Test.csproj"
-            ]
+            ],
+            "problemMatcher": []
         },
         {
             "label": "Service.Testes",
             "command": "dotnet",
             "type": "process",
             "args": [
-                "test",               
+                "test",
                 "${workspaceFolder}/src/Api.Service.Test/Api.Service.Test.csproj"
-            ]
+            ],
+            "problemMatcher": []
         },
         {
             "label": "Application.Testes",
             "command": "dotnet",
             "type": "process",
             "args": [
-                "test",               
+                "test",
                 "${workspaceFolder}/src/Api.Application.Test/Api.Application.Test.csproj"
             ]
         },
@@ -69,7 +71,7 @@
             "command": "dotnet",
             "type": "process",
             "args": [
-                "test",               
+                "test",
                 "${workspaceFolder}/src/Api.Integration.Test/Api.Integration.Test.csproj"
             ]
         }
